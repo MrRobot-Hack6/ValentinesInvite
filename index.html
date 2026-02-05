@@ -26,7 +26,6 @@
             max-width: 500px;
         }
         
-        /* The Secret Trick: Stacked Container */
         .img-stack {
             position: relative;
             width: 100%;
@@ -43,10 +42,10 @@
             max-height: 100%;
             border-radius: 20px; 
             object-fit: contain;
-            transition: opacity 0.5s ease; /* Smooth transition */
+            transition: opacity 0.5s ease;
         }
 
-        #kissingCat { opacity: 0; } /* Hidden at start */
+        #kissingCat { opacity: 0; } 
         #waitingCat { opacity: 1; }
 
         h1 { 
@@ -108,8 +107,8 @@
 
     <div class="container" id="mainCard">
         <div class="img-stack">
-            <img id="waitingCat" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ/MDJ9IbxxvDUQM/giphy.gif" alt="Waiting">
-            <img id="kissingCat" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2Z5N3R3N3R3N3R3N3R3N3R3N3R3N3R3N3R3N3R3N3R3N3R3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/K6Byo7ReIs96YVz8S8/giphy.gif" alt="Kissing">
+            <img id="waitingCat" src="https://i.imgur.com/vH9v5lO.gif" alt="Waiting">
+            <img id="kissingCat" src="https://i.imgur.com/974R1Yp.gif" alt="Kissing">
         </div>
         
         <h1 id="headline">Will you be my Valentine? ❤️</h1>
@@ -166,11 +165,11 @@
             headline.innerHTML = "I love you forever and always. ❤️";
             btnContainer.style.visibility = "hidden";
             
-            // FADE logic: Hide one, show the other
+            // Trigger Fade
             waitingCat.style.opacity = "0";
             kissingCat.style.opacity = "1";
 
-            // Fireworks and Roses
+            // Explosive Finale
             confetti({ particleCount: 500, spread: 200, origin: { y: 0.6 } });
             
             var duration = 30 * 1000;
