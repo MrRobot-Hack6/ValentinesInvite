@@ -26,9 +26,10 @@
             max-width: 500px;
         }
         
-        .img-wrapper {
+        /* Persistent image container */
+        .img-container {
             width: 100%;
-            min-height: 250px;
+            height: 250px; /* Fixed height so it doesn't vanish */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -37,15 +38,10 @@
 
         img { 
             max-width: 100%;
-            height: auto;
-            max-height: 280px;
+            max-height: 100%;
             border-radius: 20px; 
             object-fit: contain;
-            /* Animation for a smooth fade-in */
-            animation: fadeIn 0.5s ease-in;
         }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         h1 { 
             color: #ff4d6d; 
@@ -75,7 +71,6 @@
             cursor: pointer;
             z-index: 20;
             transition: transform 0.2s ease;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
         }
 
         #noBtn {
@@ -106,10 +101,12 @@
 <body>
 
     <div class="container" id="mainCard">
-        <div class="img-wrapper">
-            <img id="displayImg" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ/MDJ9IbxxvDUQM/giphy.gif" alt="Waiting Cat">
+        <div class="img-container">
+            <img id="displayImg" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ/MDJ9IbxxvDUQM/giphy.gif" alt="Cute Cat">
         </div>
+        
         <h1 id="headline">Will you be my Valentine? ❤️</h1>
+        
         <div class="buttons" id="btnContainer">
             <button id="yesBtn">YES</button>
             <button id="noBtn">No</button>
@@ -130,10 +127,9 @@
 
         const guiltTrips = [
             "Are you sure? 🥺",
-            "Think about it again! 😭",
             "Pookie please... 🌹",
+            "Think about it again! 😭",
             "I'll be so sad! 💔",
-            "I'm gonna cry! 🍿",
             "Just click YES! 😡"
         ];
 
@@ -159,15 +155,16 @@
         });
 
         yesBtn.addEventListener('click', () => {
+            // Update the text and hide buttons, but KEEP the image
             headline.innerHTML = "I love you forever and always. ❤️";
-            btnContainer.style.display = "none";
+            btnContainer.style.visibility = "hidden"; // Uses visibility instead of display:none to keep space
             
-            // Stable GIF 2: The Kissing Cat
-            displayImg.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHp1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ/K6Byo7ReIs96YVz8S8/giphy.gif";
+            // Swap the image source to the kissing cat
+            displayImg.src = "https://media.giphy.com/media/vG6Y6UFc5S5gQk8W2q/giphy.gif";
 
-            // Mega Confetti
+            // Fireworks and Roses
             confetti({ particleCount: 500, spread: 200, origin: { y: 0.6 } });
-
+            
             var duration = 30 * 1000;
             var animationEnd = Date.now() + duration;
 
@@ -176,14 +173,14 @@
                 if (timeLeft <= 0) return clearInterval(interval);
 
                 confetti({
-                    particleCount: 70,
+                    particleCount: 60,
                     angle: 60,
                     spread: 80,
                     origin: { x: 0 },
                     colors: ['#ff4d6d', '#ffffff', '#ff0000']
                 });
                 confetti({
-                    particleCount: 70,
+                    particleCount: 60,
                     angle: 120,
                     spread: 80,
                     origin: { x: 1 },
