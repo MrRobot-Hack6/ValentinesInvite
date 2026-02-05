@@ -26,22 +26,28 @@
             max-width: 500px;
         }
         
-        /* Persistent image container */
-        .img-container {
+        /* The Secret Trick: Stacked Container */
+        .img-stack {
+            position: relative;
             width: 100%;
-            height: 250px; /* Fixed height so it doesn't vanish */
+            height: 250px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 20px;
         }
 
-        img { 
+        .img-stack img { 
+            position: absolute;
             max-width: 100%;
             max-height: 100%;
             border-radius: 20px; 
             object-fit: contain;
+            transition: opacity 0.5s ease; /* Smooth transition */
         }
+
+        #kissingCat { opacity: 0; } /* Hidden at start */
+        #waitingCat { opacity: 1; }
 
         h1 { 
             color: #ff4d6d; 
@@ -101,13 +107,14 @@
 <body>
 
     <div class="container" id="mainCard">
-        <div class="img-container">
-            <img id="displayImg" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ/MDJ9IbxxvDUQM/giphy.gif" alt="Cute Cat">
+        <div class="img-stack">
+            <img id="waitingCat" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ/MDJ9IbxxvDUQM/giphy.gif" alt="Waiting">
+            <img id="kissingCat" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2Z5N3R3N3R3N3R3N3R3N3R3N3R3N3R3N3R3N3R3N3R3N3R3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/K6Byo7ReIs96YVz8S8/giphy.gif" alt="Kissing">
         </div>
         
         <h1 id="headline">Will you be my Valentine? ❤️</h1>
         
-        <div class="buttons" id="btnContainer">
+        <div id="btnContainer" class="buttons">
             <button id="yesBtn">YES</button>
             <button id="noBtn">No</button>
         </div>
@@ -120,7 +127,8 @@
         const yesBtn = document.getElementById('yesBtn');
         const headline = document.getElementById('headline');
         const btnContainer = document.getElementById('btnContainer');
-        const displayImg = document.getElementById('displayImg');
+        const waitingCat = document.getElementById('waitingCat');
+        const kissingCat = document.getElementById('kissingCat');
 
         let yesScale = 1;
         let questionIndex = 0;
@@ -155,12 +163,12 @@
         });
 
         yesBtn.addEventListener('click', () => {
-            // Update the text and hide buttons, but KEEP the image
             headline.innerHTML = "I love you forever and always. ❤️";
-            btnContainer.style.visibility = "hidden"; // Uses visibility instead of display:none to keep space
+            btnContainer.style.visibility = "hidden";
             
-            // Swap the image source to the kissing cat
-            displayImg.src = "https://media.giphy.com/media/vG6Y6UFc5S5gQk8W2q/giphy.gif";
+            // FADE logic: Hide one, show the other
+            waitingCat.style.opacity = "0";
+            kissingCat.style.opacity = "1";
 
             // Fireworks and Roses
             confetti({ particleCount: 500, spread: 200, origin: { y: 0.6 } });
