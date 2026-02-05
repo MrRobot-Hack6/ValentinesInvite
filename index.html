@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine? ❤️</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #ffeef0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container { 
+            text-align: center; 
+            z-index: 10; 
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .img-wrapper {
+            width: 100%;
+            min-height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        img { 
+            max-width: 100%;
+            height: auto;
+            max-height: 280px;
+            border-radius: 20px; 
+            object-fit: contain;
+            /* Animation for a smooth fade-in */
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        h1 { 
+            color: #ff4d6d; 
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+            min-height: 80px;
+        }
+
+        .buttons { 
+            display: flex; 
+            gap: 15px; 
+            justify-content: center; 
+            align-items: center; 
+            position: relative;
+            width: 100%;
+            min-height: 100px;
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 20;
+            transition: transform 0.2s ease;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
+        }
+
+        #noBtn {
+            background-color: #808080;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 15;
+        }
+
+        .rose {
+            position: fixed;
+            top: -50px;
+            font-size: 2.5rem;
+            animation: fall linear forwards;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(720deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainCard">
+        <div class="img-wrapper">
+            <img id="displayImg" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ/MDJ9IbxxvDUQM/giphy.gif" alt="Waiting Cat">
+        </div>
+        <h1 id="headline">Will you be my Valentine? ❤️</h1>
+        <div class="buttons" id="btnContainer">
+            <button id="yesBtn">YES</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const headline = document.getElementById('headline');
+        const btnContainer = document.getElementById('btnContainer');
+        const displayImg = document.getElementById('displayImg');
+
+        let yesScale = 1;
+        let questionIndex = 0;
+
+        const guiltTrips = [
+            "Are you sure? 🥺",
+            "Think about it again! 😭",
+            "Pookie please... 🌹",
+            "I'll be so sad! 💔",
+            "I'm gonna cry! 🍿",
+            "Just click YES! 😡"
+        ];
+
+        function handleNo() {
+            headline.innerText = guiltTrips[questionIndex];
+            questionIndex = (questionIndex + 1) % guiltTrips.length;
+
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.position = "fixed";
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+
+            yesScale += 0.5;
+            yesBtn.style.transform = `scale(${yesScale})`;
+        }
+
+        noBtn.addEventListener('mouseover', handleNo);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            handleNo();
+        });
+
+        yesBtn.addEventListener('click', () => {
+            headline.innerHTML = "I love you forever and always. ❤️";
+            btnContainer.style.display = "none";
+            
+            // Stable GIF 2: The Kissing Cat
+            displayImg.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHp1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ1ZzZ/K6Byo7ReIs96YVz8S8/giphy.gif";
+
+            // Mega Confetti
+            confetti({ particleCount: 500, spread: 200, origin: { y: 0.6 } });
+
+            var duration = 30 * 1000;
+            var animationEnd = Date.now() + duration;
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return clearInterval(interval);
+
+                confetti({
+                    particleCount: 70,
+                    angle: 60,
+                    spread: 80,
+                    origin: { x: 0 },
+                    colors: ['#ff4d6d', '#ffffff', '#ff0000']
+                });
+                confetti({
+                    particleCount: 70,
+                    angle: 120,
+                    spread: 80,
+                    origin: { x: 1 },
+                    colors: ['#ff4d6d', '#ffffff', '#ff0000']
+                });
+            }, 300);
+
+            setInterval(createRose, 80);
+        });
+
+        function createRose() {
+            const rose = document.createElement('div');
+            rose.classList.add('rose');
+            const icons = ['🌹', '❤️', '💖', '✨', '💋'];
+            rose.innerText = icons[Math.floor(Math.random() * icons.length)];
+            rose.style.left = Math.random() * 100 + 'vw';
+            rose.style.animationDuration = Math.random() * 2 + 1.5 + 's';
+            document.body.appendChild(rose);
+            setTimeout(() => rose.remove(), 5000);
+        }
+    </script>
+</body>
+</html>
