@@ -40,7 +40,6 @@
             max-height: 100%;
             border-radius: 20px; 
             object-fit: contain;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
 
         h1 { 
@@ -48,7 +47,6 @@
             font-size: 1.6rem;
             margin-bottom: 30px;
             min-height: 80px;
-            line-height: 1.4;
         }
 
         .buttons { 
@@ -105,7 +103,7 @@
 
     <div class="container" id="mainCard">
         <div class="img-container">
-            <img id="displayImg" src="https://res.cloudinary.com/dz976as8k/image/upload/v1707125862/waiting_cat.gif" alt="Cute Cat">
+            <img id="displayImg" src="https://media.tenor.com/9v1z_n_K6p4AAAAC/mochi-peach-cat-cat.gif" alt="Cute Cat">
         </div>
         
         <h1 id="headline">Will you be my Valentine? ❤️</h1>
@@ -116,8 +114,6 @@
         </div>
     </div>
 
-    <link rel="preload" as="image" href="https://res.cloudinary.com/dz976as8k/image/upload/v1707125862/kissing_cat.gif">
-
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <script>
@@ -125,7 +121,6 @@
         const yesBtn = document.getElementById('yesBtn');
         const headline = document.getElementById('headline');
         const btnContainer = document.getElementById('btnContainer');
-        const displayImg = document.getElementById('displayImg');
 
         let yesScale = 1;
         let questionIndex = 0;
@@ -163,10 +158,7 @@
             headline.innerHTML = "I love you forever and always. ❤️";
             btnContainer.style.display = "none";
             
-            // Swap to Kissing Cat
-            displayImg.src = "https://res.cloudinary.com/dz976as8k/image/upload/v1707125862/kissing_cat.gif";
-
-            // Explosive Finale
+            // We keep the SAME GIF, but trigger the explosive celebration
             confetti({ particleCount: 500, spread: 200, origin: { y: 0.6 } });
             
             var duration = 30 * 1000;
@@ -177,14 +169,14 @@
                 if (timeLeft <= 0) return clearInterval(interval);
 
                 confetti({
-                    particleCount: 70,
+                    particleCount: 80,
                     angle: 60,
                     spread: 80,
                     origin: { x: 0 },
                     colors: ['#ff4d6d', '#ffffff', '#ff0000']
                 });
                 confetti({
-                    particleCount: 70,
+                    particleCount: 80,
                     angle: 120,
                     spread: 80,
                     origin: { x: 1 },
