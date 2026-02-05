@@ -26,33 +26,29 @@
             max-width: 500px;
         }
         
-        .img-stack {
-            position: relative;
+        .img-container {
             width: 100%;
             height: 250px;
-            margin-bottom: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-bottom: 20px;
         }
 
-        .img-stack img { 
-            position: absolute;
+        img { 
             max-width: 100%;
             max-height: 100%;
             border-radius: 20px; 
             object-fit: contain;
-            transition: opacity 0.5s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
-
-        #kissingCat { opacity: 0; } 
-        #waitingCat { opacity: 1; }
 
         h1 { 
             color: #ff4d6d; 
             font-size: 1.6rem;
             margin-bottom: 30px;
             min-height: 80px;
+            line-height: 1.4;
         }
 
         .buttons { 
@@ -76,6 +72,7 @@
             cursor: pointer;
             z-index: 20;
             transition: transform 0.2s ease;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
         }
 
         #noBtn {
@@ -87,6 +84,7 @@
             border-radius: 50px;
             cursor: pointer;
             z-index: 15;
+            white-space: nowrap;
         }
 
         .rose {
@@ -106,18 +104,19 @@
 <body>
 
     <div class="container" id="mainCard">
-        <div class="img-stack">
-            <img id="waitingCat" src="https://i.imgur.com/vH9v5lO.gif" alt="Waiting">
-            <img id="kissingCat" src="https://i.imgur.com/974R1Yp.gif" alt="Kissing">
+        <div class="img-container">
+            <img id="displayImg" src="https://res.cloudinary.com/dz976as8k/image/upload/v1707125862/waiting_cat.gif" alt="Cute Cat">
         </div>
         
         <h1 id="headline">Will you be my Valentine? ❤️</h1>
         
-        <div id="btnContainer" class="buttons">
+        <div class="buttons" id="btnContainer">
             <button id="yesBtn">YES</button>
             <button id="noBtn">No</button>
         </div>
     </div>
+
+    <link rel="preload" as="image" href="https://res.cloudinary.com/dz976as8k/image/upload/v1707125862/kissing_cat.gif">
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
@@ -126,8 +125,7 @@
         const yesBtn = document.getElementById('yesBtn');
         const headline = document.getElementById('headline');
         const btnContainer = document.getElementById('btnContainer');
-        const waitingCat = document.getElementById('waitingCat');
-        const kissingCat = document.getElementById('kissingCat');
+        const displayImg = document.getElementById('displayImg');
 
         let yesScale = 1;
         let questionIndex = 0;
@@ -163,11 +161,10 @@
 
         yesBtn.addEventListener('click', () => {
             headline.innerHTML = "I love you forever and always. ❤️";
-            btnContainer.style.visibility = "hidden";
+            btnContainer.style.display = "none";
             
-            // Trigger Fade
-            waitingCat.style.opacity = "0";
-            kissingCat.style.opacity = "1";
+            // Swap to Kissing Cat
+            displayImg.src = "https://res.cloudinary.com/dz976as8k/image/upload/v1707125862/kissing_cat.gif";
 
             // Explosive Finale
             confetti({ particleCount: 500, spread: 200, origin: { y: 0.6 } });
@@ -180,14 +177,14 @@
                 if (timeLeft <= 0) return clearInterval(interval);
 
                 confetti({
-                    particleCount: 60,
+                    particleCount: 70,
                     angle: 60,
                     spread: 80,
                     origin: { x: 0 },
                     colors: ['#ff4d6d', '#ffffff', '#ff0000']
                 });
                 confetti({
-                    particleCount: 60,
+                    particleCount: 70,
                     angle: 120,
                     spread: 80,
                     origin: { x: 1 },
